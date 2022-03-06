@@ -1,0 +1,111 @@
+Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.1.0-RC3)
+Created date          : 2022-03-02 15:15:34
+Parameters            : generate --name aitest -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace12049079684682006698850468096863264 --output C:\Users\steinmann\.stm32cubemx\aitest_output
+
+Exec/report summary (generate)
+------------------------------------------------------------------------------------------------------------------------
+model file            : C:\Users\steinmann\Documents\GitHub\AI_PulseReconstruction\colab_output\pulse_reco.tflite
+type                  : tflite
+c_name                : aitest
+compression           : None
+workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace12049079684682006698850468096863264
+output dir            : C:\Users\steinmann\.stm32cubemx\aitest_output
+model_name            : pulse_reco
+model_hash            : ab30b92588a07febc68fe336d2721374
+input 1/1             : 'serving_default_waveform_input0'
+                        128 items, 512 B, ai_float, float, (1,1,1,128), domain:user/
+output 1/1            : 'dense_3'
+                        3 items, 12 B, ai_float, float, (1,1,1,3), domain:user/
+params #              : 11,395 items (11.51 KiB)
+macc                  : 11,395
+weights (ro)          : 45,580 B (44.51 KiB) / +33,792(+286.7%) vs original model (1 segment)
+activations (rw)      : 384 B (384 B) (1 segment)
+ram (total)           : 908 B (908 B) = 384 + 512 + 12
+
+Model name - pulse_reco ['serving_default_waveform_input0'] ['dense_3']
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+id   layer (type)                              oshape        param/size    macc    connected to                      |   c_size             c_macc   c_type      
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0    serving_default_waveform_input0 (Input)   (1,1,1,128)                                                           |                              
+     dense_0 (Dense)                           (1,1,1,64)    8,192/8,192   8,192   serving_default_waveform_input0   |   +24,576(+300.0%)            dense()[0]  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1    dense_1 (Dense)                           (1,1,1,32)    2,080/2,176   2,080   dense_0                           |   +6,144(+282.4%)             dense()[1]  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2    dense_2 (Dense)                           (1,1,1,32)    1,024/1,024   1,024   dense_1                           |   +3,072(+300.0%)             dense()[2]  
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3    dense_3 (Dense)                           (1,1,1,3)     99/396        99      dense_2                           |                               dense()/o[3]
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+model/c-model: macc=11,395/11,395  weights=11,788/45,580 +33,792(+286.7%) activations=--/384 io=--/524
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : pulse_reco
+c-name                : aitest
+c-node #              : 4
+c-array #             : 11
+activations size      : 384 (1 segments)
+weights size          : 45580 (1 segments)
+macc                  : 11395
+inputs                : ['serving_default_waveform_input0_output']
+outputs               : ['dense_3_output']
+
+C-Arrays (11)
+---------------------------------------------------------------------------------------------------------------------
+c_id   name (*_array)                           item/size    domain/mem-pool           c-type        fmt     comment
+---------------------------------------------------------------------------------------------------------------------
+0      serving_default_waveform_input0_output   128/512      user/                     float         float   /input 
+1      dense_0_output                           64/256       activations/**default**   float         float          
+2      dense_1_output                           32/128       activations/**default**   float         float          
+3      dense_2_output                           32/128       activations/**default**   float         float          
+4      dense_3_output                           3/12         user/                     float         float   /output
+5      dense_0_weights                          8192/32768   weights/                  const float   float          
+6      dense_1_weights                          2048/8192    weights/                  const float   float          
+7      dense_1_bias                             32/128       weights/                  const float   float          
+8      dense_2_weights                          1024/4096    weights/                  const float   float          
+9      dense_3_weights                          96/384       weights/                  const float   float          
+10     dense_3_bias                             3/12         weights/                  const float   float          
+---------------------------------------------------------------------------------------------------------------------
+
+C-Layers (4)
+----------------------------------------------------------------------------------------------------------------------
+c_id   name (*_layer)   id   layer_type   macc   rom     tensors                                     shape (array id)
+----------------------------------------------------------------------------------------------------------------------
+0      dense_0          0    dense        8192   32768   I: serving_default_waveform_input0_output   (1,1,1,128) (0) 
+                                                         W: dense_0_weights                          (128,1,1,64) (5)
+                                                         O: dense_0_output                           (1,1,1,64) (1)  
+----------------------------------------------------------------------------------------------------------------------
+1      dense_1          1    dense        2080   8320    I: dense_0_output                           (1,1,1,64) (1)  
+                                                         W: dense_1_weights                          (64,1,1,32) (6) 
+                                                         W: dense_1_bias                             (1,1,1,32) (7)  
+                                                         O: dense_1_output                           (1,1,1,32) (2)  
+----------------------------------------------------------------------------------------------------------------------
+2      dense_2          2    dense        1024   4096    I: dense_1_output                           (1,1,1,32) (2)  
+                                                         W: dense_2_weights                          (32,1,1,32) (8) 
+                                                         O: dense_2_output                           (1,1,1,32) (3)  
+----------------------------------------------------------------------------------------------------------------------
+3      dense_3          3    dense        99     396     I: dense_2_output                           (1,1,1,32) (3)  
+                                                         W: dense_3_weights                          (32,1,1,3) (9)  
+                                                         W: dense_3_bias                             (1,1,1,3) (10)  
+                                                         O: dense_3_output                           (1,1,1,3) (4)   
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+Complexity report per layer - macc=11,395 weights=45,580 act=384 ram_io=524
+------------------------------------------------------------------------
+id   name      c_macc                    c_rom                     c_id
+------------------------------------------------------------------------
+0    dense_0   ||||||||||||||||  71.9%   ||||||||||||||||  71.9%   [0] 
+1    dense_1   ||||              18.3%   ||||              18.3%   [1] 
+2    dense_2   ||                 9.0%   ||                 9.0%   [2] 
+3    dense_3   |                  0.9%   |                  0.9%   [3] 
+
+Generated files (5)
+-----------------------------------------------------------------------
+C:\Users\steinmann\.stm32cubemx\aitest_output\aitest_config.h
+C:\Users\steinmann\.stm32cubemx\aitest_output\aitest.h
+C:\Users\steinmann\.stm32cubemx\aitest_output\aitest.c
+C:\Users\steinmann\.stm32cubemx\aitest_output\aitest_data.h
+C:\Users\steinmann\.stm32cubemx\aitest_output\aitest_data.c
