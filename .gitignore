@@ -132,3 +132,7 @@ dmypy.json
 *.o
 *.d
 Debug*
+
+*/.ai/*
+*/.metadata/*
+*/.settings/*
