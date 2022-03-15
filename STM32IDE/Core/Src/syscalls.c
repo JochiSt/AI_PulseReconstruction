@@ -2,8 +2,6 @@
 #include  <errno.h>
 #include  <sys/unistd.h>		// STDOUT_FILENO, STDERR_FILENO
 
-char ENABLE_UART_DEBUG=2;		//< should the debug output (printf) been printed
-
 int _write(int file, char *data, int len){
    if ((file != STDOUT_FILENO) && (file != STDERR_FILENO)){
       errno = EBADF;
