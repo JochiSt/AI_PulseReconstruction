@@ -123,8 +123,7 @@ int main(void)
 	LED_STATUS(SET);
     /* USER CODE END WHILE */
 
-	MX_X_CUBE_AI_Process();
-
+    MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
 	LED_STATUS(RESET);
 
