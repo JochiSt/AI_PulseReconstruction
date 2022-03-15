@@ -36,7 +36,8 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+uint8_t rx_data[128];
+uint8_t ai_result[3];
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
