@@ -15,7 +15,7 @@ def main():
                                          bytesize = serial.EIGHTBITS,
                                          parity = serial.PARITY_NONE,
                                          stopbits = serial.STOPBITS_ONE,
-                                         timeout = 10)
+                                         timeout = 2)
     except Exception as e:
         print(e)
         serial_port.close()
