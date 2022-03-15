@@ -171,15 +171,25 @@ static int ai_run(void)
 /* USER CODE BEGIN 2 */
 int acquire_and_process_data(ai_i8* data[])
 {
-  data[0] = rx_data;
+  /* fill the inputs of the c-model
+  for (int idx=0; idx < AI_AITEST_IN_NUM; idx++ )
+  {
+      data[idx] = ....
+  }
+
+  */
   return 0;
 }
 
 int post_process(ai_i8* data[])
 {
-  ai_result[0] = data[0][0];
-  ai_result[1] = data[0][1];
-  ai_result[2] = data[0][2];
+  /* process the predictions
+  for (int idx=0; idx < AI_AITEST_OUT_NUM; idx++ )
+  {
+      data[idx] = ....
+  }
+
+  */
   return 0;
 }
 /* USER CODE END 2 */
@@ -200,7 +210,7 @@ void MX_X_CUBE_AI_Process(void)
     /* USER CODE BEGIN 6 */
   int res = -1;
 
-  //printf("TEMPLATE - run - main loop\r\n");
+  printf("TEMPLATE - run - main loop\r\n");
 
   if (aitest) {
 
@@ -213,8 +223,6 @@ void MX_X_CUBE_AI_Process(void)
       /* 3- post-process the predictions */
       if (res == 0)
         res = post_process(data_outs);
-
-      break;
     } while (res==0);
   }
 

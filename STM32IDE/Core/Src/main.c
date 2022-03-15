@@ -20,14 +20,14 @@
 #include "main.h"
 #include "crc.h"
 #include "sai.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 #include "app_x-cube-ai.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include "syscalls.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,8 +41,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define LED_STATUS(Op)  HAL_GPIO_WritePin(LD2_GPIO_Port,  LD2_Pin,  GPIO_PIN_##Op)
-#define LED_RUN(Op)  	HAL_GPIO_WritePin(OUT1_GPIO_Port, OUT1_Pin, GPIO_PIN_##Op)
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -93,43 +92,20 @@ int main(void)
   MX_USART2_UART_Init();
   MX_CRC_Init();
   MX_SAI1_Init();
+  MX_TIM1_Init();
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
-  uint8_t i = 0;
-
-  // all LEDs ON
-  LED_STATUS(RESET);
-  HAL_Delay(500);
-  LED_RUN(RESET);
-  HAL_Delay(500);
-
-  LED_RUN(SET);
-  LED_STATUS(SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	HAL_UART_Receive(&huart2, rx_data, 128, 10*1000);  // receive 128 bytes of data
-
-	// output received data
-	for(i=0; i<128;i++){
-		printf("%d ", rx_data[i]);
-	}
-	printf("\n");
-
-	LED_STATUS(SET);
     /* USER CODE END WHILE */
 
-    MX_X_CUBE_AI_Process();
+	MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
-	LED_STATUS(RESET);
-
-   	printf("%d\t%d\t%d\n",ai_result[0], ai_result[1], ai_result[2]);
-
-
   }
   /* USER CODE END 3 */
 }

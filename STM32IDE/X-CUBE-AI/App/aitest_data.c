@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    aitest_data.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Tue Mar 15 13:12:05 2022
+  * @date    Tue Mar 15 17:35:59 2022
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
