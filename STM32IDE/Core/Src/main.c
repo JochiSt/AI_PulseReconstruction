@@ -96,7 +96,7 @@ int main(void)
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
-  //uint8_t i = 0;
+  uint8_t i = 0;
 
   // all LEDs ON
   LED_STATUS(RESET);
@@ -115,12 +115,10 @@ int main(void)
 	HAL_UART_Receive(&huart2, rx_data, 128, 10*1000);  // receive 128 bytes of data
 
 	// output received data
-	/*
 	for(i=0; i<128;i++){
-		printf("%d", rx_data[i]);
+		printf("%d ", rx_data[i]);
 	}
 	printf("\n");
-	*/
 
 	LED_STATUS(SET);
     /* USER CODE END WHILE */
