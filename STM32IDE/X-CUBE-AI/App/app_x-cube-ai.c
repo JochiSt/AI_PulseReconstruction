@@ -63,27 +63,25 @@
 /* IO buffers ----------------------------------------------------------------*/
 
 #if !defined(AI_AITEST_INPUTS_IN_ACTIVATIONS)
- AI_ALIGNED(4) ai_i8 data_in_1[AI_AITEST_IN_1_SIZE_BYTES];
-
- ai_i8* data_ins[AI_AITEST_IN_NUM] = {
-		 data_in_1
- };
+AI_ALIGNED(4) ai_i8 data_in_1[AI_AITEST_IN_1_SIZE_BYTES];
+ai_i8* data_ins[AI_AITEST_IN_NUM] = {
+data_in_1
+};
 #else
-
- ai_i8* data_ins[AI_AITEST_IN_NUM] = {
-		NULL
- };
+ai_i8* data_ins[AI_AITEST_IN_NUM] = {
+NULL
+};
 #endif
 
 #if !defined(AI_AITEST_OUTPUTS_IN_ACTIVATIONS)
- AI_ALIGNED(4) ai_i8 data_out_1[AI_AITEST_OUT_1_SIZE_BYTES];
- ai_i8* data_outs[AI_AITEST_OUT_NUM] = {
-		 data_out_1
- };
+AI_ALIGNED(4) ai_i8 data_out_1[AI_AITEST_OUT_1_SIZE_BYTES];
+ai_i8* data_outs[AI_AITEST_OUT_NUM] = {
+data_out_1
+};
 #else
- ai_i8* data_outs[AI_AITEST_OUT_NUM] = {
-		 NULL
- };
+ai_i8* data_outs[AI_AITEST_OUT_NUM] = {
+NULL
+};
 #endif
 
 /* Activations buffers -------------------------------------------------------*/
@@ -173,25 +171,15 @@ static int ai_run(void)
 /* USER CODE BEGIN 2 */
 int acquire_and_process_data(ai_i8* data[])
 {
-  /* fill the inputs of the c-model
-  for (int idx=0; idx < AI_AITEST_IN_NUM; idx++ )
-  {
-      data[idx] = ....
-  }
-
-  */
+  data[0] = rx_data;
   return 0;
 }
 
 int post_process(ai_i8* data[])
 {
-  /* process the predictions
-  for (int idx=0; idx < AI_AITEST_OUT_NUM; idx++ )
-  {
-      data[idx] = ....
-  }
-
-  */
+  ai_result[0] = data[0][0];
+  ai_result[1] = data[0][1];
+  ai_result[2] = data[0][2];
   return 0;
 }
 /* USER CODE END 2 */
@@ -225,6 +213,8 @@ void MX_X_CUBE_AI_Process(void)
       /* 3- post-process the predictions */
       if (res == 0)
         res = post_process(data_outs);
+
+      break;
     } while (res==0);
   }
 
