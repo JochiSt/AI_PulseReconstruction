@@ -130,7 +130,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	LED_STATUS(RESET);
 
-   	printf("%d %d %d\n",ai_result[0], ai_result[1], ai_result[2]);
+   	printf("%d\t%d\t%d\n",ai_result[0], ai_result[1], ai_result[2]);
 
 
   }
