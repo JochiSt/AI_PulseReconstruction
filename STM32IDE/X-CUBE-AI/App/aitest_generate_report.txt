@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.1.0-RC3)
-Created date          : 2022-03-15 10:32:15
-Parameters            : generate --name aitest -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23112504231374008771359966355628091 --output C:\Users\steinmann\.stm32cubemx\aitest_output
+Created date          : 2022-03-15 13:12:06
+Parameters            : generate --name aitest -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23209086886150005020749680040028942 --output C:\Users\steinmann\.stm32cubemx\aitest_output
 
 Exec/report summary (generate)
 ------------------------------------------------------------------------------------------------------------------------
@@ -8,7 +8,7 @@ model file            : C:\Users\steinmann\Documents\GitHub\AI_PulseReconstructi
 type                  : tflite
 c_name                : aitest
 compression           : None
-workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23112504231374008771359966355628091
+workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23209086886150005020749680040028942
 output dir            : C:\Users\steinmann\.stm32cubemx\aitest_output
 model_name            : pulse_reco
 model_hash            : ab30b92588a07febc68fe336d2721374
