@@ -31,13 +31,15 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "syscalls.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-uint8_t rx_data[128];
-uint8_t ai_result[3];
+
+int8_t rx_data[128];	// data from UART for AI
+int8_t ai_result[3];	// result from the AI
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -47,7 +49,8 @@ uint8_t ai_result[3];
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#define LED_STATUS(Op)  HAL_GPIO_WritePin(LD2_GPIO_Port,  LD2_Pin,  GPIO_PIN_##Op)
+#define LED_RUN(Op)  	HAL_GPIO_WritePin(OUT1_GPIO_Port, OUT1_Pin, GPIO_PIN_##Op)
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
