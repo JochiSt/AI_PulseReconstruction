@@ -4,7 +4,7 @@
   ******************************************************************************
   * @file    aitest.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Tue Mar 15 17:35:59 2022
+  * @date    Wed Mar 16 06:16:16 2022
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -27,7 +27,7 @@
 
 /******************************************************************************/
 #define AI_AITEST_MODEL_NAME          "aitest"
-#define AI_AITEST_ORIGIN_MODEL_NAME   "pulse_reco"
+#define AI_AITEST_ORIGIN_MODEL_NAME   "pulse_reco_qaware"
 
 /******************************************************************************/
 #define AI_AITEST_ACTIVATIONS_ALIGNMENT   (4)
@@ -69,7 +69,7 @@ AI_DEPRECATED
 #define AI_AITEST_OUT_1_SIZE_BYTES  (12)
 
 /******************************************************************************/
-#define AI_AITEST_N_NODES (4)
+#define AI_AITEST_N_NODES (6)
 
 
 AI_API_DECLARE_BEGIN

@@ -3,7 +3,7 @@
   ******************************************************************************
   * @file    aitest_config.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Tue Mar 15 17:35:59 2022
+  * @date    Wed Mar 16 06:16:16 2022
   * @brief   AI Tool Automatic Code Generator for Custom Layers Implementation
   ******************************************************************************
   * @attention
