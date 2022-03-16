@@ -75,5 +75,7 @@ if __name__ == "__main__":
             "timing_1.vcd",
             "timing_2.vcd",
             "timing_3.vcd",
+            "timing_4.vcd",
+            "timing_5.vcd",
             ]
     )
