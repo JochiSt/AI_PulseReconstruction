@@ -55,13 +55,15 @@ def main():
 
     try:
         raw = serial_port.readline()
+        #print(raw)
         raw = raw.decode("utf-8")[:-1]
         STM32waveform = np.array(raw.split(" "))
 
         raw = serial_port.readline()
+        #print(raw)
         raw = raw.decode("utf-8")[:-1]
 
-        width, position, height = raw.split("\t")
+        width, position, height = raw.split("\t")[:-1]  # we have one trailing tab
 
         print( width, position, height )
     except Exception as e:
