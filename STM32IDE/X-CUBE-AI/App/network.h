@@ -4,7 +4,7 @@
   ******************************************************************************
   * @file    network.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Mar 16 09:48:12 2022
+  * @date    Wed Mar 16 10:34:57 2022
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -27,7 +27,7 @@
 
 /******************************************************************************/
 #define AI_NETWORK_MODEL_NAME          "network"
-#define AI_NETWORK_ORIGIN_MODEL_NAME   "pulse_reco_qaware"
+#define AI_NETWORK_ORIGIN_MODEL_NAME   "pulse_reco"
 
 /******************************************************************************/
 #define AI_NETWORK_ACTIVATIONS_ALIGNMENT   (4)
@@ -69,7 +69,7 @@ AI_DEPRECATED
 #define AI_NETWORK_OUT_1_SIZE_BYTES  (12)
 
 /******************************************************************************/
-#define AI_NETWORK_N_NODES (6)
+#define AI_NETWORK_N_NODES (4)
 
 
 AI_API_DECLARE_BEGIN
