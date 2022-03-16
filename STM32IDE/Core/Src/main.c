@@ -96,16 +96,44 @@ int main(void)
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
+  // all LEDs OFF
+  LED_RUN(RESET);
+  LED_STATUS(RESET);
+
+  // all LEDs ON
+  LED_STATUS(SET);
+  HAL_Delay(500);
+  LED_RUN(SET);
+  HAL_Delay(500);
+
+  // all LEDs OFF
+  LED_RUN(RESET);
+  LED_STATUS(RESET);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  printf("everything done - entering while loop\n");
+  uint8_t i = 0;
   while (1)
   {
+	HAL_UART_Receive(&huart2, (uint8_t*) rx_data, 128, 10*1000);  // receive 128 bytes of data
+
+	// output received data
+	for(i=0; i<128;i++){
+		printf("%d ", rx_data[i]);
+	}
+	printf("\n");
+
+	LED_STATUS(SET);
     /* USER CODE END WHILE */
 
 	MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
+  	LED_STATUS(RESET);
+ 	printf("%d\t%d\t%d\n",ai_result[0], ai_result[1], ai_result[2]);
+
   }
   /* USER CODE END 3 */
 }
