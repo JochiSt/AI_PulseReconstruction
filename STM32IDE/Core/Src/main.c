@@ -159,20 +159,30 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   printf("everything initialised - entering while loop\n");
   uint8_t i = 0;
-  uint8_t rx_data[128] = {0};
+  uint8_t rx_data[AI_NETWORK_IN_1_SIZE] = {0};
   while (1){
-	HAL_UART_Receive(&huart2, (uint8_t*) rx_data, 128, 10*1000);  // receive 128 bytes of data
+	HAL_UART_Receive(&huart2, (uint8_t*) rx_data, AI_NETWORK_IN_1_SIZE, 10*1000);  // receive 128 bytes of data
 
 	// output received data
-	for(i=0; i<128;i++){
-		aiInData[i] = rx_data[i];	// copy UART data to ai input
-		printf("%d ", rx_data[i]);	// echo received data
+	for(i=0; i<AI_NETWORK_IN_1_SIZE;i++){
+		aiInData[i] = rx_data[i]/255.;	// copy UART data to ai input
+		printf("%d ", rx_data[i]);		// echo received data
 	}
 	printf("\n");
 
+	/*
+	// float output of aiInData
+	for(i=0; i<AI_NETWORK_IN_1_SIZE;i++){
+		printf("%fd ", aiInData[i]);// echo ANN input data
+	}
+	printf("\n");
+	*/
+
 	//printf("Running inference\r\n");
 	LED_STATUS(SET);
+	LED_RUN(SET);
 	AI_Run(aiInData, aiOutData);
+	LED_RUN(RESET);
   	LED_STATUS(RESET);
 
 	/* Output results */
