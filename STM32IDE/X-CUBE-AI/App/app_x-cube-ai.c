@@ -178,6 +178,7 @@ int acquire_and_process_data(ai_i8* data[])
   }
 
   */
+  data[0] = (ai_i8*)&ai_model_in[0];
   return 0;
 }
 
@@ -190,6 +191,9 @@ int post_process(ai_i8* data[])
   }
 
   */
+  ai_result[0] = data[0][0];
+  ai_result[1] = data[0][1];
+  ai_result[2] = data[0][2];
   return 0;
 }
 /* USER CODE END 2 */
@@ -223,6 +227,7 @@ void MX_X_CUBE_AI_Process(void)
       /* 3- post-process the predictions */
       if (res == 0)
         res = post_process(data_outs);
+      break;
     } while (res==0);
   }
 
