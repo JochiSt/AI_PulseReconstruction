@@ -42,24 +42,30 @@ def main():
     reco_params = []
 
     TEST_SIZE = 10000
+    NOISE_ENABLE = False
+    noise_str = "noise"
     for i in range(TEST_SIZE):
         if i % 10 == 0:
             print(i,"of", TEST_SIZE)
 
         # create a new waveform
-
         # parameters for template generation
         P_width    = ( 16,  32 )
         P_position = ( 16,  24 )
         P_height   = ( 32, 128 )
 
+        # randomize the parameters
         width    = np.random.randint( *P_width )       # width of 16 to 64
         position = np.random.randint( *P_position ) # arbitrary position
         height   = np.random.randint( *P_height )     # pulse height of 32 to 128
 
-        noise = np.random.randint(1,30)/10.                 # 0.1 to 3 LSB noise
-
-        noise = 0.
+        # generate some noise
+        if NOISE_ENABLE:
+            noise = np.random.randint(1,30)/10.                 # 0.1 to 3 LSB noise
+            noise_str = "noise"
+        else:
+            noise_str = "quiet"
+            noise = 0.
 
         #print(width, position, height)
         # scale parameters to get values between 0 and 1
@@ -108,7 +114,7 @@ def main():
             serial_port.close()
             break
 
-    np.savez("stm32_ann_evaluation_%s.npz"%(time.strftime("%Y%m%d_%H%M%S")),
+    np.savez("stm32_eval_%s_%s_%d.npz"%(time.strftime("%Y%m%d_%H%M%S"), noise_str, TEST_SIZE),
              reco_params=reco_params,
              gene_params=gene_params
              )
