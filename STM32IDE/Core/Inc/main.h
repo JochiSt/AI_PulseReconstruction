@@ -32,13 +32,14 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "syscalls.h"
+#include "ai_platform.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
-int8_t rx_data[128];	// data from UART for AI
-int8_t ai_result[3];	// result from the AI
+ai_float ai_model_in[128];	// data from UART for AI
+ai_float ai_result[3];	// result from the AI
 
 /* USER CODE END ET */
 
