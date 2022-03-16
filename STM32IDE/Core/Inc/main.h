@@ -38,9 +38,6 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
-ai_float ai_model_in[128];	// data from UART for AI
-ai_float ai_result[3];	// result from the AI
-
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
