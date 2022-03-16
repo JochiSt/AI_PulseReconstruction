@@ -178,8 +178,6 @@ int acquire_and_process_data(ai_i8* data[])
   }
 
   */
-  data[0] = (ai_i8*)&ai_model_in[0];
-  return 0;
 }
 
 int post_process(ai_i8* data[])
@@ -191,10 +189,6 @@ int post_process(ai_i8* data[])
   }
 
   */
-  ai_result[0] = data[0][0];
-  ai_result[1] = data[0][1];
-  ai_result[2] = data[0][2];
-  return 0;
 }
 /* USER CODE END 2 */
 
