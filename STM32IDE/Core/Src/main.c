@@ -15,6 +15,11 @@
   *
   ******************************************************************************
   */
+
+/**
+  * followed the instructions from
+  * https://wiki.stmicroelectronics.cn/stm32mcu/wiki/AI:How_to_perform_motion_sensing_on_STM32L4_IoTnode
+  */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -130,7 +135,6 @@ int main(void)
   MX_CRC_Init();
   MX_SAI1_Init();
   MX_TIM1_Init();
-  //MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
   AI_Init();
