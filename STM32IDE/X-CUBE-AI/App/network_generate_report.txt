@@ -1,6 +1,6 @@
 Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.1.0-RC3)
-Created date          : 2022-03-16 10:34:59
-Parameters            : generate --name network -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23979234276636002971966232732742973 --output C:\Users\steinmann\.stm32cubemx\network_output
+Created date          : 2022-03-16 11:50:40
+Parameters            : generate --name network -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace240242762293240017224519230487356929 --output C:\Users\steinmann\.stm32cubemx\network_output
 
 Exec/report summary (generate)
 ------------------------------------------------------------------------------------------------------------------------
@@ -8,10 +8,10 @@ model file            : C:\Users\steinmann\Documents\GitHub\AI_PulseReconstructi
 type                  : tflite
 c_name                : network
 compression           : None
-workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23979234276636002971966232732742973
+workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace240242762293240017224519230487356929
 output dir            : C:\Users\steinmann\.stm32cubemx\network_output
 model_name            : pulse_reco
-model_hash            : b37f9355177a3f65865e064390147833
+model_hash            : 8071fcceee6c34dcee049dda5a4338b5
 input 1/1             : 'serving_default_waveform_input0'
                         128 items, 512 B, ai_float, float, (1,1,1,128), domain:user/
 output 1/1            : 'dense_3'
