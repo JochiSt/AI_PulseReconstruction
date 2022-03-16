@@ -96,6 +96,8 @@ int main(void)
   MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
+  uint8_t rx_data[128] = {0};
+
   // all LEDs OFF
   LED_RUN(RESET);
   LED_STATUS(RESET);
@@ -122,7 +124,8 @@ int main(void)
 
 	// output received data
 	for(i=0; i<128;i++){
-		printf("%d ", rx_data[i]);
+		ai_model_in[i] = rx_data[i];	// copy UART data to ai input
+		printf("%d ", rx_data[i]);	// echo received data
 	}
 	printf("\n");
 
@@ -132,7 +135,7 @@ int main(void)
 	MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
   	LED_STATUS(RESET);
- 	printf("%d\t%d\t%d\n",ai_result[0], ai_result[1], ai_result[2]);
+ 	printf("%f\t%f\t%f\n",ai_result[0], ai_result[1], ai_result[2]);
 
   }
   /* USER CODE END 3 */
