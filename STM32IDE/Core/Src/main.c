@@ -23,11 +23,12 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-#include "app_x-cube-ai.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ai_platform.h"
+#include "network.h"
+#include "network_data.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,18 +48,54 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+ai_handle network;
+float aiInData[AI_NETWORK_IN_1_SIZE];
+float aiOutData[AI_NETWORK_OUT_1_SIZE];
+ai_u8 activations[AI_NETWORK_DATA_ACTIVATIONS_SIZE];
 
+ai_buffer* ai_input;
+ai_buffer* ai_output;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+static void AI_Init(void);
+static void AI_Run(float *pIn, float *pOut);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+static void AI_Init(void){
+  ai_error err;
 
+  /* Create a local array with the addresses of the activations buffers */
+  const ai_handle act_addr[] = { activations };
+  /* Create an instance of the model */
+  err = ai_network_create_and_init(&network, act_addr, NULL);
+  if (err.type != AI_ERROR_NONE) {
+    printf("ai_network_create error - type=%d code=%d\r\n", err.type, err.code);
+    Error_Handler();
+  }
+  ai_input = ai_network_inputs_get(network, NULL);
+  ai_output = ai_network_outputs_get(network, NULL);
+}
+
+static void AI_Run(float *pIn, float *pOut){
+  ai_i32 batch;
+  ai_error err;
+
+  /* Update IO handlers with the data payload */
+  ai_input[0].data = AI_HANDLE_PTR(pIn);
+  ai_output[0].data = AI_HANDLE_PTR(pOut);
+
+  batch = ai_network_run(network, ai_input, ai_output);
+  if (batch != 1) {
+    err = ai_network_get_error(network);
+    printf("AI ai_network_run error - type=%d code=%d\r\n", err.type, err.code);
+    Error_Handler();
+  }
+}
 /* USER CODE END 0 */
 
 /**
@@ -93,10 +130,10 @@ int main(void)
   MX_CRC_Init();
   MX_SAI1_Init();
   MX_TIM1_Init();
-  MX_X_CUBE_AI_Init();
+  //MX_X_CUBE_AI_Init();
   /* USER CODE BEGIN 2 */
 
-  uint8_t rx_data[128] = {0};
+  AI_Init();
 
   // all LEDs OFF
   LED_RUN(RESET);
@@ -116,26 +153,33 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  printf("everything done - entering while loop\n");
+  printf("everything initialised - entering while loop\n");
   uint8_t i = 0;
-  while (1)
-  {
+  uint8_t rx_data[128] = {0};
+  while (1){
 	HAL_UART_Receive(&huart2, (uint8_t*) rx_data, 128, 10*1000);  // receive 128 bytes of data
 
 	// output received data
 	for(i=0; i<128;i++){
-		ai_model_in[i] = rx_data[i];	// copy UART data to ai input
+		aiInData[i] = rx_data[i];	// copy UART data to ai input
 		printf("%d ", rx_data[i]);	// echo received data
 	}
 	printf("\n");
 
+	//printf("Running inference\r\n");
 	LED_STATUS(SET);
+	AI_Run(aiInData, aiOutData);
+  	LED_STATUS(RESET);
+
+	/* Output results */
+	for (uint32_t i = 0; i < AI_NETWORK_OUT_1_SIZE; i++) {
+		printf("%8.6f\t", aiOutData[i]);
+	}
+	printf("\n");
+
     /* USER CODE END WHILE */
 
-	MX_X_CUBE_AI_Process();
     /* USER CODE BEGIN 3 */
-  	LED_STATUS(RESET);
- 	printf("%f\t%f\t%f\n",ai_result[0], ai_result[1], ai_result[2]);
 
   }
   /* USER CODE END 3 */
