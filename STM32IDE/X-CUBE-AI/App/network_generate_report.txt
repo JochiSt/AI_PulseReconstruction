@@ -1,15 +1,15 @@
 Neural Network Tools for STM32AI v1.6.0 (STM.ai v7.1.0-RC3)
-Created date          : 2022-03-16 06:16:17
-Parameters            : generate --name aitest -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco_qaware.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23824017041407009316958983440645101 --output C:\Users\steinmann\.stm32cubemx\aitest_output
+Created date          : 2022-03-16 09:48:13
+Parameters            : generate --name network -m C:/Users/steinmann/Documents/GitHub/AI_PulseReconstruction/colab_output/pulse_reco_qaware.tflite --type tflite --compression 1 --verbosity 1 --workspace C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace239510326934170018365954609991087907 --output C:\Users\steinmann\.stm32cubemx\network_output
 
 Exec/report summary (generate)
 ------------------------------------------------------------------------------------------------------------------------
 model file            : C:\Users\steinmann\Documents\GitHub\AI_PulseReconstruction\colab_output\pulse_reco_qaware.tflite
 type                  : tflite
-c_name                : aitest
+c_name                : network
 compression           : None
-workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace23824017041407009316958983440645101
-output dir            : C:\Users\steinmann\.stm32cubemx\aitest_output
+workspace dir         : C:\Users\STEINM~1\AppData\Local\Temp\mxAI_workspace239510326934170018365954609991087907
+output dir            : C:\Users\steinmann\.stm32cubemx\network_output
 model_name            : pulse_reco_qaware
 model_hash            : fff4b4468f595121281c28ab16e4449b
 input 1/1             : 'serving_default_waveform_input0'
@@ -46,7 +46,7 @@ model/c-model: macc=11,753/11,753  weights=11,884/11,884  activations=--/192 io=
 Generated C-graph summary
 ------------------------------------------------------------------------------------------------------------------------
 model name            : pulse_reco_qaware
-c-name                : aitest
+c-name                : network
 c-node #              : 6
 c-array #             : 15
 activations size      : 192 (1 segments)
@@ -121,9 +121,9 @@ id   name           c_macc                    c_rom                     c_id
 5    conversion_5   |                  0.1%   |                  0.0%   [5] 
 
 Generated files (5)
------------------------------------------------------------------------
-C:\Users\steinmann\.stm32cubemx\aitest_output\aitest_config.h
-C:\Users\steinmann\.stm32cubemx\aitest_output\aitest.h
-C:\Users\steinmann\.stm32cubemx\aitest_output\aitest.c
-C:\Users\steinmann\.stm32cubemx\aitest_output\aitest_data.h
-C:\Users\steinmann\.stm32cubemx\aitest_output\aitest_data.c
+-------------------------------------------------------------------------
+C:\Users\steinmann\.stm32cubemx\network_output\network_config.h
+C:\Users\steinmann\.stm32cubemx\network_output\network.h
+C:\Users\steinmann\.stm32cubemx\network_output\network.c
+C:\Users\steinmann\.stm32cubemx\network_output\network_data.h
+C:\Users\steinmann\.stm32cubemx\network_output\network_data.c

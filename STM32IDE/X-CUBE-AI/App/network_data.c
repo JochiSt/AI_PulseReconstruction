@@ -1,9 +1,9 @@
 
 /**
   ******************************************************************************
-  * @file    aitest_data.c
+  * @file    network_data.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Mar 16 06:16:16 2022
+  * @date    Wed Mar 16 09:48:12 2022
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -16,13 +16,13 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
-#include "aitest_data.h"
+#include "network_data.h"
 #include "ai_platform_interface.h"
 
 AI_API_DECLARE_BEGIN
 
 AI_ALIGNED(32)
-const ai_u64 s_aitest_aitest_weights_array_u64[ 1486 ] = {
+const ai_u64 s_network_network_weights_array_u64[ 1486 ] = {
   0x4a00c3e0fe371129U, 0xf9e7f04107e025ecU, 0x12fadb292ae0df0aU, 0x1fce10eee6dff818U,
   0x2da06211b1fe0efU, 0x71700e407f61cfaU, 0x6edf7031dedea08U, 0xdc17fd17f7f1e61eU,
   0xaff17f3df0b2615U, 0xdf0c20cfed110d1eU, 0xe31021f7fb11dd03U, 0xdfc912f349ee16c2U,
@@ -398,50 +398,50 @@ const ai_u64 s_aitest_aitest_weights_array_u64[ 1486 ] = {
 };
 
 
-ai_buffer g_aitest_data_map_activations[AI_AITEST_DATA_ACTIVATIONS_COUNT] = {
+ai_buffer g_network_data_map_activations[AI_NETWORK_DATA_ACTIVATIONS_COUNT] = {
   AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
     AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 192, 1, 1),
     192, NULL, NULL),    /* heap_overlay_pool */
   };
-ai_buffer g_aitest_data_map_weights[AI_AITEST_DATA_WEIGHTS_COUNT] = {
+ai_buffer g_network_data_map_weights[AI_NETWORK_DATA_WEIGHTS_COUNT] = {
   AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
     AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 11884, 1, 1),
-    11884, NULL, s_aitest_aitest_weights_array_u64),   /* aitest_weights_array */
+    11884, NULL, s_network_network_weights_array_u64),   /* network_weights_array */
   };
 
 
 /*!
  * @brief Get network activations buffer initialized struct.
- * @ingroup aitest_data
+ * @ingroup network_data
  * @param[in] ptr a pointer to the activations array storage area
  * @return an ai_buffer initialized struct
  */
 AI_DEPRECATED
 AI_API_ENTRY
-ai_buffer ai_aitest_data_activations_buffer_get(const ai_handle ptr)
+ai_buffer ai_network_data_activations_buffer_get(const ai_handle ptr)
 {
   ai_buffer buf = AI_BUFFER_INIT(
     AI_FLAG_NONE, AI_BUFFER_FORMAT_U8,
-    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, AI_AITEST_DATA_ACTIVATIONS_SIZE, 1, AI_AITEST_DATA_ACTIVATIONS_COUNT),
-    AI_AITEST_DATA_ACTIVATIONS_SIZE,
+    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, AI_NETWORK_DATA_ACTIVATIONS_SIZE, 1, AI_NETWORK_DATA_ACTIVATIONS_COUNT),
+    AI_NETWORK_DATA_ACTIVATIONS_SIZE,
     NULL, ptr);
   return buf;
 }
 
 /*!
  * @brief Get network weights buffer initialized struct.
- * @ingroup aitest_data
+ * @ingroup network_data
  * @param[in] ptr a pointer to the weights array storage area
  * @return an ai_buffer initialized struct
  */
 AI_DEPRECATED
 AI_API_ENTRY
-ai_buffer ai_aitest_data_weights_buffer_get(const ai_handle ptr)
+ai_buffer ai_network_data_weights_buffer_get(const ai_handle ptr)
 {
   ai_buffer buf = AI_BUFFER_INIT(
     AI_FLAG_NONE, AI_BUFFER_FORMAT_U8|AI_BUFFER_FMT_FLAG_CONST,
-    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, AI_AITEST_DATA_WEIGHTS_SIZE, 1, AI_AITEST_DATA_WEIGHTS_COUNT),
-    AI_AITEST_DATA_WEIGHTS_SIZE,
+    AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, AI_NETWORK_DATA_WEIGHTS_SIZE, 1, AI_NETWORK_DATA_WEIGHTS_COUNT),
+    AI_NETWORK_DATA_WEIGHTS_SIZE,
     NULL, ptr);
   return buf;
 }
@@ -449,39 +449,39 @@ ai_buffer ai_aitest_data_weights_buffer_get(const ai_handle ptr)
 
 /*!
  * @brief Get network weights array pointer as a handle ptr.
- * @ingroup aitest_data
+ * @ingroup network_data
  * @return a ai_handle pointer to the weights array
  */
 AI_DEPRECATED
 AI_API_ENTRY
-ai_handle ai_aitest_data_weights_get(void)
+ai_handle ai_network_data_weights_get(void)
 {
-  static const ai_u8* const s_aitest_weights_table[1 + 2] = {
+  static const ai_u8* const s_network_weights_table[1 + 2] = {
     AI_PTR(AI_MAGIC_MARKER),
-    AI_PTR(s_aitest_aitest_weights_array_u64),
+    AI_PTR(s_network_network_weights_array_u64),
     AI_PTR(AI_MAGIC_MARKER)
   };
 
-  return AI_HANDLE_PTR(s_aitest_weights_table);
+  return AI_HANDLE_PTR(s_network_weights_table);
 
 }
 
 
 /*!
  * @brief Get network params configuration data structure.
- * @ingroup aitest_data
+ * @ingroup network_data
  * @return true if a valid configuration is present, false otherwise
  */
 AI_API_ENTRY
-ai_bool ai_aitest_data_params_get(ai_network_params* params)
+ai_bool ai_network_data_params_get(ai_network_params* params)
 {
   if (!params) return false;
   
   const ai_buffer_array map_activations = 
-    AI_BUFFER_ARRAY_OBJ_INIT(AI_FLAG_NONE, AI_AITEST_DATA_ACTIVATIONS_COUNT, g_aitest_data_map_activations);
+    AI_BUFFER_ARRAY_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_DATA_ACTIVATIONS_COUNT, g_network_data_map_activations);
   
   const ai_buffer_array map_weights = 
-    AI_BUFFER_ARRAY_OBJ_INIT(AI_FLAG_NONE, AI_AITEST_DATA_WEIGHTS_COUNT, g_aitest_data_map_weights);
+    AI_BUFFER_ARRAY_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_DATA_WEIGHTS_COUNT, g_network_data_map_weights);
 
   return ai_platform_bind_network_params(params, &map_weights, &map_activations);
 }

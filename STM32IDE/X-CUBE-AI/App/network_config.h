@@ -1,9 +1,9 @@
 
 /**
   ******************************************************************************
-  * @file    aitest_config.h
+  * @file    network_config.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Mar 16 06:16:16 2022
+  * @date    Wed Mar 16 09:48:12 2022
   * @brief   AI Tool Automatic Code Generator for Custom Layers Implementation
   ******************************************************************************
   * @attention
@@ -17,8 +17,8 @@
   ******************************************************************************
   */
 
-#ifndef AI_AITEST_CONFIG_H
-#define AI_AITEST_CONFIG_H
+#ifndef AI_NETWORK_CONFIG_H
+#define AI_NETWORK_CONFIG_H
 #pragma once
 
 #undef AI_TOOLS_VERSION_MAJOR
@@ -44,4 +44,4 @@
 #define AI_TOOLS_API_VERSION_MINOR (5)
 #define AI_TOOLS_API_VERSION_MICRO (0)
 
-#endif /*AI_AITEST_CONFIG_H*/
+#endif /*AI_NETWORK_CONFIG_H*/

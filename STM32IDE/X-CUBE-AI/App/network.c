@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    aitest.c
+  * @file    network.c
   * @author  AST Embedded Analytics Research Platform
-  * @date    Wed Mar 16 06:16:16 2022
+  * @date    Wed Mar 16 09:48:12 2022
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -17,8 +17,8 @@
   */
 
 
-#include "aitest.h"
-#include "aitest_data.h"
+#include "network.h"
+#include "network_data.h"
 
 #include "ai_platform.h"
 #include "ai_platform_interface.h"
@@ -33,23 +33,23 @@
 
 
 #undef AI_NET_OBJ_INSTANCE
-#define AI_NET_OBJ_INSTANCE g_aitest
+#define AI_NET_OBJ_INSTANCE g_network
  
-#undef AI_AITEST_MODEL_SIGNATURE
-#define AI_AITEST_MODEL_SIGNATURE     "fff4b4468f595121281c28ab16e4449b"
+#undef AI_NETWORK_MODEL_SIGNATURE
+#define AI_NETWORK_MODEL_SIGNATURE     "fff4b4468f595121281c28ab16e4449b"
 
 #ifndef AI_TOOLS_REVISION_ID
 #define AI_TOOLS_REVISION_ID     ""
 #endif
 
 #undef AI_TOOLS_DATE_TIME
-#define AI_TOOLS_DATE_TIME   "Wed Mar 16 06:16:16 2022"
+#define AI_TOOLS_DATE_TIME   "Wed Mar 16 09:48:12 2022"
 
 #undef AI_TOOLS_COMPILE_TIME
 #define AI_TOOLS_COMPILE_TIME    __DATE__ " " __TIME__
 
-#undef AI_AITEST_N_BATCHES
-#define AI_AITEST_N_BATCHES         (1)
+#undef AI_NETWORK_N_BATCHES
+#define AI_NETWORK_N_BATCHES         (1)
 
 
 
@@ -412,8 +412,8 @@ AI_NETWORK_OBJ_DECLARE(
   AI_BUFFER_INIT(AI_FLAG_NONE,  AI_BUFFER_FORMAT_U8,
     AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 192, 1, 1),
     192, NULL, NULL),
-  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_AITEST_IN_NUM, &serving_default_waveform_input0_output),
-  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_AITEST_OUT_NUM, &conversion_5_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &serving_default_waveform_input0_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &conversion_5_output),
   &conversion_0_layer, 0, NULL)
 
 #else
@@ -432,8 +432,8 @@ AI_NETWORK_OBJ_DECLARE(
       AI_BUFFER_SHAPE_INIT(AI_SHAPE_BCWH, 4, 1, 192, 1, 1),
       192, NULL, NULL)
   ),
-  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_AITEST_IN_NUM, &serving_default_waveform_input0_output),
-  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_AITEST_OUT_NUM, &conversion_5_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_IN_NUM, &serving_default_waveform_input0_output),
+  AI_TENSOR_LIST_IO_OBJ_INIT(AI_FLAG_NONE, AI_NETWORK_OUT_NUM, &conversion_5_output),
   &conversion_0_layer, 0, NULL)
 
 #endif	/*(AI_TOOLS_API_VERSION < AI_TOOLS_API_VERSION_1_5)*/
@@ -441,7 +441,7 @@ AI_NETWORK_OBJ_DECLARE(
 
 /******************************************************************************/
 AI_DECLARE_STATIC
-ai_bool aitest_configure_activations(
+ai_bool network_configure_activations(
   ai_network* net_ctx, const ai_network_params* params)
 {
   AI_ASSERT(net_ctx)
@@ -471,7 +471,7 @@ ai_bool aitest_configure_activations(
 
 /******************************************************************************/
 AI_DECLARE_STATIC
-ai_bool aitest_configure_weights(
+ai_bool network_configure_weights(
   ai_network* net_ctx, const ai_network_params* params)
 {
   AI_ASSERT(net_ctx)
@@ -516,7 +516,7 @@ ai_bool aitest_configure_weights(
 
 AI_DEPRECATED
 AI_API_ENTRY
-ai_bool ai_aitest_get_info(
+ai_bool ai_network_get_info(
   ai_handle network, ai_network_report* report)
 {
   ai_network* net_ctx = AI_NETWORK_ACQUIRE_CTX(network);
@@ -524,8 +524,8 @@ ai_bool ai_aitest_get_info(
   if (report && net_ctx)
   {
     ai_network_report r = {
-      .model_name        = AI_AITEST_MODEL_NAME,
-      .model_signature   = AI_AITEST_MODEL_SIGNATURE,
+      .model_name        = AI_NETWORK_MODEL_NAME,
+      .model_signature   = AI_NETWORK_MODEL_SIGNATURE,
       .model_datetime    = AI_TOOLS_DATE_TIME,
       
       .compile_datetime  = AI_TOOLS_COMPILE_TIME,
@@ -562,7 +562,7 @@ ai_bool ai_aitest_get_info(
 
 
 AI_API_ENTRY
-ai_bool ai_aitest_get_report(
+ai_bool ai_network_get_report(
   ai_handle network, ai_network_report* report)
 {
   ai_network* net_ctx = AI_NETWORK_ACQUIRE_CTX(network);
@@ -570,8 +570,8 @@ ai_bool ai_aitest_get_report(
   if (report && net_ctx)
   {
     ai_network_report r = {
-      .model_name        = AI_AITEST_MODEL_NAME,
-      .model_signature   = AI_AITEST_MODEL_SIGNATURE,
+      .model_name        = AI_NETWORK_MODEL_NAME,
+      .model_signature   = AI_NETWORK_MODEL_SIGNATURE,
       .model_datetime    = AI_TOOLS_DATE_TIME,
       
       .compile_datetime  = AI_TOOLS_COMPILE_TIME,
@@ -608,13 +608,13 @@ ai_bool ai_aitest_get_report(
 }
 
 AI_API_ENTRY
-ai_error ai_aitest_get_error(ai_handle network)
+ai_error ai_network_get_error(ai_handle network)
 {
   return ai_platform_network_get_error(network);
 }
 
 AI_API_ENTRY
-ai_error ai_aitest_create(
+ai_error ai_network_create(
   ai_handle* network, const ai_buffer* network_config)
 {
   return ai_platform_network_create(
@@ -624,41 +624,41 @@ ai_error ai_aitest_create(
 }
 
 AI_API_ENTRY
-ai_error ai_aitest_create_and_init(
+ai_error ai_network_create_and_init(
   ai_handle* network, const ai_handle activations[], const ai_handle weights[])
 {
     ai_error err;
     ai_network_params params;
 
-    err = ai_aitest_create(network, AI_AITEST_DATA_CONFIG);
+    err = ai_network_create(network, AI_NETWORK_DATA_CONFIG);
     if (err.type != AI_ERROR_NONE)
         return err;
-    if (ai_aitest_data_params_get(&params) != true) {
-        err = ai_aitest_get_error(*network);
+    if (ai_network_data_params_get(&params) != true) {
+        err = ai_network_get_error(*network);
         return err;
     }
-#if defined(AI_AITEST_DATA_ACTIVATIONS_COUNT)
+#if defined(AI_NETWORK_DATA_ACTIVATIONS_COUNT)
     if (activations) {
         /* set the addresses of the activations buffers */
         for (int idx=0;idx<params.map_activations.size;idx++)
             AI_BUFFER_ARRAY_ITEM_SET_ADDRESS(&params.map_activations, idx, activations[idx]);
     }
 #endif
-#if defined(AI_AITEST_DATA_WEIGHTS_COUNT)
+#if defined(AI_NETWORK_DATA_WEIGHTS_COUNT)
     if (weights) {
         /* set the addresses of the weight buffers */
         for (int idx=0;idx<params.map_weights.size;idx++)
             AI_BUFFER_ARRAY_ITEM_SET_ADDRESS(&params.map_weights, idx, weights[idx]);
     }
 #endif
-    if (ai_aitest_init(*network, &params) != true) {
-        err = ai_aitest_get_error(*network);
+    if (ai_network_init(*network, &params) != true) {
+        err = ai_network_get_error(*network);
     }
     return err;
 }
 
 AI_API_ENTRY
-ai_buffer* ai_aitest_inputs_get(ai_handle network, ai_u16 *n_buffer)
+ai_buffer* ai_network_inputs_get(ai_handle network, ai_u16 *n_buffer)
 {
   if (network == AI_HANDLE_NULL) {
     network = (ai_handle)&AI_NET_OBJ_INSTANCE;
@@ -668,7 +668,7 @@ ai_buffer* ai_aitest_inputs_get(ai_handle network, ai_u16 *n_buffer)
 }
 
 AI_API_ENTRY
-ai_buffer* ai_aitest_outputs_get(ai_handle network, ai_u16 *n_buffer)
+ai_buffer* ai_network_outputs_get(ai_handle network, ai_u16 *n_buffer)
 {
   if (network == AI_HANDLE_NULL) {
     network = (ai_handle)&AI_NET_OBJ_INSTANCE;
@@ -678,21 +678,21 @@ ai_buffer* ai_aitest_outputs_get(ai_handle network, ai_u16 *n_buffer)
 }
 
 AI_API_ENTRY
-ai_handle ai_aitest_destroy(ai_handle network)
+ai_handle ai_network_destroy(ai_handle network)
 {
   return ai_platform_network_destroy(network);
 }
 
 AI_API_ENTRY
-ai_bool ai_aitest_init(
+ai_bool ai_network_init(
   ai_handle network, const ai_network_params* params)
 {
   ai_network* net_ctx = ai_platform_network_init(network, params);
   if (!net_ctx) return false;
 
   ai_bool ok = true;
-  ok &= aitest_configure_weights(net_ctx, params);
-  ok &= aitest_configure_activations(net_ctx, params);
+  ok &= network_configure_weights(net_ctx, params);
+  ok &= network_configure_activations(net_ctx, params);
 
   ok &= ai_platform_network_post_init(network);
 
@@ -701,21 +701,21 @@ ai_bool ai_aitest_init(
 
 
 AI_API_ENTRY
-ai_i32 ai_aitest_run(
+ai_i32 ai_network_run(
   ai_handle network, const ai_buffer* input, ai_buffer* output)
 {
   return ai_platform_network_process(network, input, output);
 }
 
 AI_API_ENTRY
-ai_i32 ai_aitest_forward(ai_handle network, const ai_buffer* input)
+ai_i32 ai_network_forward(ai_handle network, const ai_buffer* input)
 {
   return ai_platform_network_process(network, input, NULL);
 }
 
 
 
-#undef AI_AITEST_MODEL_SIGNATURE
+#undef AI_NETWORK_MODEL_SIGNATURE
 #undef AI_NET_OBJ_INSTANCE
 #undef AI_TOOLS_DATE_TIME
 #undef AI_TOOLS_COMPILE_TIME
