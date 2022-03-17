@@ -50,7 +50,7 @@ def analyse_pulse_width(vcd_files):
     std_duration = np.std(duration)
 
     fig, ax = plt.subplots()
-    biny, binx, _ = plt.hist(duration, bins=100, range=(630, 650) )
+    biny, binx, _ = plt.hist(duration, bins=100, range=(mean_duration-5*std_duration, mean_duration+5*std_duration) )
 
     x = np.linspace(binx.min(), binx.max(), 100)
     plt.plot(x, stats.norm.pdf(x, mean_duration, std_duration)*biny.max() )
@@ -71,11 +71,17 @@ def analyse_pulse_width(vcd_files):
 
 
 if __name__ == "__main__":
+
     analyse_pulse_width([
             "timing_1.vcd",
             "timing_2.vcd",
             "timing_3.vcd",
             "timing_4.vcd",
             "timing_5.vcd",
-            ]
-    )
+            ])
+
+    analyse_pulse_width([
+            "timing_0.3_1.vcd",
+            "timing_0.3_2.vcd",
+            "timing_0.3_3.vcd",
+            ])
