@@ -41,6 +41,21 @@ def main():
     gene_params = []
     reco_params = []
 
+    # parameters for template generation
+    P_width    = ( 16,  32 )
+    P_position = ( 16,  24 )
+    P_height   = ( 32, 128 )
+
+    # dice once to get one set of parameters
+    WIDTH     = np.random.randint( *P_width )       # width of 16 to 64
+    POSITION = np.random.randint( *P_position )   # arbitrary position
+    HEIGHT    = np.random.randint( *P_height )     # pulse height of 32 to 128
+
+    # scale parameters to get values between 0 and 1
+    SCALE_WIDTH = 64
+    SCALE_POS = 32
+    SCALE_HEIGHT = 255
+
     TEST_SIZE = 10000
     NOISE_ENABLE = False
     noise_str = "noise"
@@ -48,16 +63,17 @@ def main():
         if i % 10 == 0:
             print(i,"of", TEST_SIZE)
 
-        # create a new waveform
-        # parameters for template generation
-        P_width    = ( 16,  32 )
-        P_position = ( 16,  24 )
-        P_height   = ( 32, 128 )
-
+        """
         # randomize the parameters
         width    = np.random.randint( *P_width )       # width of 16 to 64
-        position = np.random.randint( *P_position ) # arbitrary position
+        position = np.random.randint( *P_position )   # arbitrary position
         height   = np.random.randint( *P_height )     # pulse height of 32 to 128
+        """
+
+        # generate a single parameter waveform
+        width = WIDTH
+        position = POSITION
+        height = HEIGHT
 
         # generate some noise
         if NOISE_ENABLE:
@@ -69,13 +85,10 @@ def main():
             noise = 0.
 
         #print(width, position, height)
-        # scale parameters to get values between 0 and 1
-        SCALE_WIDTH = 64
-        SCALE_POS = 32
-        SCALE_HEIGHT = 255
 
         gene_params.append( (width, position, height) )
 
+        # create a new waveform
         test_data = generateTemplate(position = position, pulse_length = width, height=height, noise=noise)
         test_data = test_data.astype(np.uint8)
 
@@ -87,22 +100,29 @@ def main():
             break
 
         try:
-            # readin waveform send to STM32 (it's echoed)
-            raw = serial_port.readline()
-            #print(raw)
-            raw = raw.decode("utf-8")[:-1]
-            STM32waveform = np.array(raw.split(" "))
-
+            try:
+                # readin waveform send to STM32 (it's echoed)
+                raw = serial_port.readline()
+                #print(raw)
+                raw = raw.decode("utf-8")[:-1]
+                STM32waveform = np.array(raw.split(" "))
+            except Exception as e:
+                print("raw output '", raw, "'")
+                raise e
             # float output
             #raw = serial_port.readline()
             #raw = raw.decode("utf-8")[:-1]
             #print(raw)
 
-            # read reconstructed parameters
-            raw = serial_port.readline()
-            #print(raw)
-            raw = raw.decode("utf-8")[:-1]
-            width, position, height = raw.split("\t")[:-1]  # we have one trailing tab
+            try:
+                # read reconstructed parameters
+                raw = serial_port.readline()
+                #print(raw)
+                raw = raw.decode("utf-8")[:-1]
+                width, position, height = raw.split("\t")[:-1]  # we have one trailing tab
+            except Exception as e:
+                print("raw output '", raw, "'")
+                raise e
 
             #print( width, position, height )
             reco_params.append( (
