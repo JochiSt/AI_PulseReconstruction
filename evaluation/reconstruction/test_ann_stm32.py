@@ -42,7 +42,7 @@ def main():
     reco_params = []
 
     TEST_SIZE = 10000
-    NOISE_ENABLE = False
+    NOISE_ENABLE = True
     noise_str = "noise"
     for i in range(TEST_SIZE):
         if i % 10 == 0:
@@ -62,7 +62,8 @@ def main():
         # generate some noise
         if NOISE_ENABLE:
             noise = np.random.randint(1,30)/10.                 # 0.1 to 3 LSB noise
-            noise_str = "noise"
+            noise = 1
+            noise_str = "noise_1LSB"
         else:
             noise_str = "quiet"
             noise = 0.
