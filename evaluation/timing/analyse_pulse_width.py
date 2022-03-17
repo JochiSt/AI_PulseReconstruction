@@ -113,3 +113,15 @@ if __name__ == "__main__":
             "timing_0.3_2.vcd",
             "timing_0.3_3.vcd",
             ])
+
+    analyse_pulse_width([
+            "timing_0.4_1.vcd",
+            "timing_0.4_2.vcd",
+            ])
+
+    # always the same waveform
+    analyse_pulse_width([
+            "timing_0.4_same_1.vcd",
+            "timing_0.4_same_2.vcd",
+            "timing_0.4_same_3.vcd",
+            ])
