@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats
 import scipy.odr
+from scipy.optimize import curve_fit
 
 def plot_ann_stm32(filename):
     npz = np.load(filename)
@@ -10,7 +11,7 @@ def plot_ann_stm32(filename):
     gene_params = npz["gene_params"]
     reco_params = npz["reco_params"]
 
-    def f(B, x):
+    def Fodr(B, x):
         '''Linear function y = m*x + b'''
         # B is a vector of the parameters.
         # x is an array of the current x values.
@@ -18,7 +19,11 @@ def plot_ann_stm32(filename):
         #
         # Return an array in the same format as y passed to Data or RealData.
         return B[0]*x + B[1]
-    linear = scipy.odr.Model(f)
+
+    def Fcurve_fit(x, m, b):
+        return m*x + b
+
+    linear = scipy.odr.Model(Fodr)
 
     fig, ax = plt.subplots()
     plt.title("width")
@@ -34,12 +39,16 @@ def plot_ann_stm32(filename):
     beta = myoutput.beta
     beta_sd = myoutput.sd_beta
 
+    popt, pcov = curve_fit(Fcurve_fit, x, y)
+    beta      = popt
+    beta_sd = np.sqrt(np.diagonal(pcov))
+
     plt.hist2d( x, y,  bins=32, cmin=1, cmap='summer')
     r, p = scipy.stats.pearsonr(x, y)
     plt.text( 0.05, 0.9,  "correlation %4.2f %%"%(r * 100), ha='left', va='center', transform=ax.transAxes )
 
-    plt.text( 0.05, 0.8,   r"$slope = %4.3f \pm %4.3f$"%(beta[0], beta_sd[0]), ha='left', va='center', transform=ax.transAxes )
-    plt.text( 0.05, 0.74, r"$offset = %4.3f \pm %4.3f$"%(beta[1], beta_sd[1]), ha='left', va='center', transform=ax.transAxes )
+    plt.text( 0.05, 0.8,   r"$\mathrm{slope} = %4.3f \pm %4.3f$"%(beta[0], beta_sd[0]), ha='left', va='center', transform=ax.transAxes )
+    plt.text( 0.05, 0.74, r"$\mathrm{offset} = %4.3f \pm %4.3f$"%(beta[1], beta_sd[1]), ha='left', va='center', transform=ax.transAxes )
 
     X = np.linspace(np.min(x),np.max(x), 100)
     plt.plot( X, beta[0]*X + beta[1], 'r')
@@ -64,12 +73,16 @@ def plot_ann_stm32(filename):
     beta = myoutput.beta
     beta_sd = myoutput.sd_beta
 
+    popt, pcov = curve_fit(Fcurve_fit, x, y)
+    beta      = popt
+    beta_sd = np.sqrt(np.diagonal(pcov))
+
     plt.hist2d( x, y,  bins=32, cmin=1, cmap='summer')
     r, p = scipy.stats.pearsonr(x, y)
     plt.text( 0.05, 0.9,  "correlation %4.2f %%"%(r * 100), ha='left', va='center', transform=ax.transAxes )
 
-    plt.text( 0.05, 0.8,   r"$slope = %4.3f \pm %4.3f$"%(beta[0], beta_sd[0]), ha='left', va='center', transform=ax.transAxes )
-    plt.text( 0.05, 0.74, r"$offset = %4.3f \pm %4.3f$"%(beta[1], beta_sd[1]), ha='left', va='center', transform=ax.transAxes )
+    plt.text( 0.05, 0.8,   r"$\mathrm{slope} = %4.3f \pm %4.3f$"%(beta[0], beta_sd[0]), ha='left', va='center', transform=ax.transAxes )
+    plt.text( 0.05, 0.74, r"$\mathrm{offset} = %4.3f \pm %4.3f$"%(beta[1], beta_sd[1]), ha='left', va='center', transform=ax.transAxes )
 
     X = np.linspace(np.min(x),np.max(x), 100)
     plt.plot( X, beta[0]*X + beta[1], 'r')
@@ -94,12 +107,16 @@ def plot_ann_stm32(filename):
     beta = myoutput.beta
     beta_sd = myoutput.sd_beta
 
+    popt, pcov = curve_fit(Fcurve_fit, x, y)
+    beta      = popt
+    beta_sd = np.sqrt(np.diagonal(pcov))
+
     plt.hist2d( x, y,  bins=32, cmin=1, cmap='summer')
     r, p = scipy.stats.pearsonr(x, y)
     plt.text( 0.05, 0.9,  "correlation %4.2f %%"%(r * 100), ha='left', va='center', transform=ax.transAxes )
 
-    plt.text( 0.05, 0.8,   r"$slope = %4.3f \pm %4.3f$"%(beta[0], beta_sd[0]), ha='left', va='center', transform=ax.transAxes )
-    plt.text( 0.05, 0.74, r"$offset = %4.3f \pm %4.3f$"%(beta[1], beta_sd[1]), ha='left', va='center', transform=ax.transAxes )
+    plt.text( 0.05, 0.8,   r"$\mathrm{slope} = %4.3f \pm %4.3f$"%(beta[0], beta_sd[0]), ha='left', va='center', transform=ax.transAxes )
+    plt.text( 0.05, 0.74, r"$\mathrm{offset} = %4.3f \pm %4.3f$"%(beta[1], beta_sd[1]), ha='left', va='center', transform=ax.transAxes )
 
     X = np.linspace(np.min(x),np.max(x), 100)
     plt.plot( X, beta[0]*X + beta[1], 'r')
