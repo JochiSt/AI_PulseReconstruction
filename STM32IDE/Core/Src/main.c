@@ -180,9 +180,11 @@ int main(void)
 
 	//printf("Running inference\r\n");
 	LED_STATUS(SET);
+
 	LED_RUN(SET);
 	AI_Run(aiInData, aiOutData);
 	LED_RUN(RESET);
+
   	LED_STATUS(RESET);
 
 	/* Output results */
