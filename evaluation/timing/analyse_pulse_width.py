@@ -9,6 +9,7 @@ def analyse_pulse_width(vcd_files):
 
     duration = []
 
+    F_sample = 12E6         # 12 MHz
     for vcd_filename in vcd_files:
         with open(vcd_filename) as f:
             lines = f.readlines()
@@ -25,6 +26,16 @@ def analyse_pulse_width(vcd_files):
                     line = line.replace('ms', 'e-3')
                     line = line.replace(' ', '')
                     timescale = float(line)
+                elif "Acquisition" in line:
+                    #Acquisition with 1/8 channels at 12 MHz
+                    F_sample =  float(line.split(" ")[7])
+                    if "MHz" in line:
+                        F_sample *= 1e6
+                    elif "kHz" in line:
+                        F_sample *= 1e3
+                    else:
+                        F_sample *= 1e6
+
                 elif line[0] is '#':
                     line = line[1:]
                     line = line.replace('!','')
@@ -53,7 +64,7 @@ def analyse_pulse_width(vcd_files):
 
     hist_range = [mean_duration-5*std_duration, mean_duration+5*std_duration]
     delta_hist_range = hist_range[1]-hist_range[0]
-    hist_bins = int( np.round( delta_hist_range*1e-6 / (1. / 12E6), 0))    # assume 12MHz sampling
+    hist_bins = int( np.round( delta_hist_range*1e-6 / (1. / F_sample), 0))    # assume 12MHz sampling
     bin_width = delta_hist_range / hist_bins * 1000
 
     """
@@ -90,12 +101,12 @@ def analyse_pulse_width(vcd_files):
 if __name__ == "__main__":
 
     analyse_pulse_width([
-            "timing_1.vcd",
-            "timing_2.vcd",
-            "timing_3.vcd",
-            "timing_4.vcd",
-            "timing_5.vcd",
-            ])
+#            "timing_1.vcd",     # sampled with 24 MHz
+             "timing_2.vcd",
+             "timing_3.vcd",
+             "timing_4.vcd",
+             "timing_5.vcd",
+             ])
 
     analyse_pulse_width([
             "timing_0.3_1.vcd",
