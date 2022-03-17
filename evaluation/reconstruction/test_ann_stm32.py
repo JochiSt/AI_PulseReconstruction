@@ -42,7 +42,7 @@ def main():
     reco_params = []
 
     TEST_SIZE = 10000
-    NOISE_ENABLE = True
+    NOISE_ENABLE = False
     noise_str = "noise"
     for i in range(TEST_SIZE):
         if i % 10 == 0:
@@ -70,7 +70,7 @@ def main():
 
         #print(width, position, height)
         # scale parameters to get values between 0 and 1
-        SCALE_WIDTH = 32
+        SCALE_WIDTH = 64
         SCALE_POS = 32
         SCALE_HEIGHT = 255
 
@@ -124,21 +124,21 @@ def main():
     plt.title("width")
     plt.ylabel("STM32 parameter")
     plt.xlabel("generated parameter")
-    plt.hist2d( [ float(i[0]) for i in gene_params ], [ float(i[0]) for i in reco_params ], bins=32)
+    plt.hist2d( [ float(i[0]) for i in gene_params ], [ float(i[0]) for i in reco_params ], bins=32, cmin=1)
     plt.savefig("stm32_validation_width.png")
     plt.show()
 
     plt.title("position")
     plt.ylabel("STM32 parameter")
     plt.xlabel("generated parameter")
-    plt.hist2d( [ float(i[1]) for i in gene_params ], [ float(i[1]) for i in reco_params ], bins=32)
+    plt.hist2d( [ float(i[1]) for i in gene_params ], [ float(i[1]) for i in reco_params ], bins=32,cmin=1)
     plt.savefig("stm32_validation_position.png")
     plt.show()
 
     plt.title("height")
     plt.ylabel("STM32 parameter")
     plt.xlabel("generated parameter")
-    plt.hist2d( [ float(i[2]) for i in gene_params ], [ float(i[2]) for i in reco_params ], bins=32)
+    plt.hist2d( [ float(i[2]) for i in gene_params ], [ float(i[2]) for i in reco_params ], bins=32,cmin=1)
     plt.savefig("stm32_validation_height.png")
     plt.show()
 
