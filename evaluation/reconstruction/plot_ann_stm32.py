@@ -111,5 +111,8 @@ def plot_ann_stm32(filename):
 
 if __name__ == "__main__":
     #plot_ann_stm32("stm32_eval_20220316_152113_noise_10000.npz")
-    plot_ann_stm32("stm32_eval_20220316_153028_quiet_10000.npz")
+    #plot_ann_stm32("stm32_eval_20220316_153028_quiet_10000.npz")
     #plot_ann_stm32("stm32_eval_20220316_182456_noise_1LSB_10000.npz")
+
+    # new ANN v0.3
+    plot_ann_stm32("stm32_eval_20220317_121051_quiet_10000.npz")
