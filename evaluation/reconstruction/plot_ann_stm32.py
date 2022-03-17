@@ -43,7 +43,15 @@ def plot_ann_stm32(filename):
     beta      = popt
     beta_sd = np.sqrt(np.diagonal(pcov))
 
-    plt.hist2d( x, y,  bins=32, cmin=1, cmap='summer')
+    rangeX = [np.min(x)-0.5, np.max(x)+0.5]
+    rangeY = [np.min(y), np.max(y)]
+    plt.hist2d( x, y,
+               bins=[
+                       int(rangeX[1]-rangeX[0])*1,
+                       int(rangeY[1]-rangeY[0])*5
+                       ],
+               range=[rangeX,rangeY],
+               cmin=1, cmap='summer')
     r, p = scipy.stats.pearsonr(x, y)
     plt.text( 0.05, 0.9,  "correlation %4.2f %%"%(r * 100), ha='left', va='center', transform=ax.transAxes )
 
@@ -54,6 +62,7 @@ def plot_ann_stm32(filename):
     plt.plot( X, beta[0]*X + beta[1], 'r')
 
     plt.colorbar()
+    plt.tight_layout()
     plt.savefig("stm32_validation_width.png")
     plt.show()
 
@@ -77,7 +86,16 @@ def plot_ann_stm32(filename):
     beta      = popt
     beta_sd = np.sqrt(np.diagonal(pcov))
 
-    plt.hist2d( x, y,  bins=32, cmin=1, cmap='summer')
+    rangeX = [np.min(x)-0.5, np.max(x)+0.5]
+    rangeY = [np.min(y), np.max(y)]
+    plt.hist2d( x, y,
+               bins=[
+                       int( (rangeX[1]-rangeX[0]) ) *1,
+                       int(rangeY[1]-rangeY[0])*5
+                       ],
+               range=[rangeX,rangeY],
+               cmin=1, cmap='summer')
+
     r, p = scipy.stats.pearsonr(x, y)
     plt.text( 0.05, 0.9,  "correlation %4.2f %%"%(r * 100), ha='left', va='center', transform=ax.transAxes )
 
@@ -88,6 +106,7 @@ def plot_ann_stm32(filename):
     plt.plot( X, beta[0]*X + beta[1], 'r')
 
     plt.colorbar()
+    plt.tight_layout()
     plt.savefig("stm32_validation_position.png")
     plt.show()
 
@@ -111,7 +130,16 @@ def plot_ann_stm32(filename):
     beta      = popt
     beta_sd = np.sqrt(np.diagonal(pcov))
 
-    plt.hist2d( x, y,  bins=32, cmin=1, cmap='summer')
+    rangeX = [np.min(x)-0.5, np.max(x)+0.5]
+    rangeY = [np.min(y), np.max(y)]
+    plt.hist2d( x, y,
+               bins=[
+                       int(rangeX[1]-rangeX[0])/6,
+                       int(rangeY[1]-rangeY[0])
+                       ],
+               range=[rangeX,rangeY],
+               cmin=1, cmap='summer')
+
     r, p = scipy.stats.pearsonr(x, y)
     plt.text( 0.05, 0.9,  "correlation %4.2f %%"%(r * 100), ha='left', va='center', transform=ax.transAxes )
 
@@ -122,6 +150,7 @@ def plot_ann_stm32(filename):
     plt.plot( X, beta[0]*X + beta[1], 'r')
 
     plt.colorbar()
+    plt.tight_layout()
     plt.savefig("stm32_validation_height.png")
     plt.show()
 
